@@ -1,5 +1,5 @@
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import static java.lang.System.*;
+import org.apache.commons.lang3.ArrayUtils;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -8,78 +8,32 @@ import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
-public class MyArrayList<T> implements List <T>{
+public class MyArrayList<T> implements List<T> {
 
-    public static Object myList = new Array[];
+    public static Object[] myList;
 
     public static void main(String[] args) {
-        myList.add("Orange");
-        myList.add("Apple");
-        myList.add("Pear");
-        myList.add("Strawberry");
-
-        System.out.println("List size is: " + myList.checkSize());
-        System.out.println(myList.isEmpty());
-        System.out.println(myList.contains("P"));
-        System.out.println(myList.remove(1));
-    }
-    public int checkSize() {
-        int amount = 0;
-        for (String s : myList) {
-            amount++;
-        }
-        return amount;
+        myList = new Object[20];
     }
 
     @Override
     public int size() {
-        int amount = 0;
-        for (String s : myList) {
-            amount++;
-        }
-        return amount;
+        return myList.length;
     }
 
     @Override
     public boolean isEmpty() {
-        int amount = myList.size();
-        if (amount == 0) {
-            return true;
-        }
-        return false;
+        return myList.length == 0;
     }
 
     @Override
     public boolean contains(Object o) {
-        String main = null;
-        String Substring = null;
-        boolean flag=false;
-        assert false;
-        if(main.trim().equals("")) {
-            return flag;
-        }
-        char[] fullstring =main.toCharArray();
-        char[] sub =Substring.toCharArray();
-        int counter=0;
-        if(sub.length==0) {
-            flag=true;
-            return flag;
-        }
-        for (char c : fullstring) {
-
-            if (c == sub[counter]) {
-                counter++;
-            } else {
-                counter = 0;
+        for (Object o1 : myList) {
+            if (o == o1) {
+                return true;
             }
-
-            if (counter == sub.length) {
-                flag = true;
-                return flag;
-            }
-
         }
-        return flag;
+        return false;
     }
 
     @Override
@@ -89,22 +43,30 @@ public class MyArrayList<T> implements List <T>{
 
     @Override
     public void forEach(Consumer action) {
-        List.super.forEach(action);
+        for (int i = 0; i < myList.length; i++) {
+
+        }
     }
 
     @Override
     public Object[] toArray() {
-        return new Object[0];
+        return myList.clone();
     }
 
     @Override
     public boolean add(Object o) {
-        return false;
+        int length = myList.length;
+        var newArr = new Object[length + 1];
+        arraycopy(myList, 0, newArr, 0, length);
+        for (Object o1 : newArr) {
+            return o == o1;
+        }
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        return false;
+        return myList = ArrayUtils.removeElement(myList, o);
     }
 
     @Override
@@ -133,7 +95,12 @@ public class MyArrayList<T> implements List <T>{
     }
 
     @Override
-    public Object get(int i) {
+    public T get(int i) {
+        return null;
+    }
+
+    @Override
+    public T remove(int i) {
         return null;
     }
 
@@ -145,12 +112,6 @@ public class MyArrayList<T> implements List <T>{
     @Override
     public void add(int i, Object o) {
 
-    }
-
-    @Override
-    public Object remove(int i) {
-
-        return myList.size();
     }
 
     @Override
