@@ -1,5 +1,5 @@
 import static java.lang.System.*;
-import org.apache.commons.lang3.ArrayUtils;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class MyArrayList<T> implements List<T> {
 
-    public static Object[] myList;
+    public Object[] myList;
 
-    public static void main(String[] args) {
-        myList = new Object[20];
+    public MyArrayList() {
+        this.myList = new Object[10];
     }
 
     @Override
@@ -38,7 +39,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Iterator iterator() {
-        return null;
+        return listIterator();
     }
 
     @Override
@@ -46,11 +47,19 @@ public class MyArrayList<T> implements List<T> {
         for (int i = 0; i < myList.length; i++) {
 
         }
+
     }
 
+    //ToDo
     @Override
     public Object[] toArray() {
         return myList.clone();
+    }
+
+    @Override
+    public boolean remove(Object o) {
+        return myList == ArrayUtils.removeElement(myList, o);
+
     }
 
     @Override
@@ -64,13 +73,12 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
-    @Override
-    public boolean remove(Object o) {
-        return myList = ArrayUtils.removeElement(myList, o);
-    }
 
     @Override
     public boolean addAll(Collection collection) {
+        for (Object o : collection) {
+            add(o);
+        }
         return false;
     }
 
@@ -79,11 +87,13 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+    //Don't do
     @Override
     public void replaceAll(UnaryOperator operator) {
         List.super.replaceAll(operator);
     }
 
+    //Don't do
     @Override
     public void sort(Comparator c) {
         List.super.sort(c);
@@ -124,20 +134,24 @@ public class MyArrayList<T> implements List<T> {
         return 0;
     }
 
+    //Don't do
     @Override
     public ListIterator listIterator() {
         return null;
     }
 
+    //Don't do
     @Override
     public ListIterator listIterator(int i) {
         return null;
     }
 
+
     @Override
     public List subList(int i, int i1) {
         return null;
     }
+
 
     @Override
     public boolean retainAll(Collection collection) {
@@ -154,6 +168,7 @@ public class MyArrayList<T> implements List<T> {
         return false;
     }
 
+    //Don't do
     @Override
     public Object[] toArray(Object[] objects) {
         return new Object[0];
