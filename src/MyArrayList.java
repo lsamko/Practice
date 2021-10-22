@@ -1,16 +1,20 @@
 import static java.lang.System.*;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class MyArrayList<T> implements List<Object> {
 
-    public Object[] myList = new Object[10];
+    public Object[] myList = new Object[5];
 
     @Override
     public int size() {
@@ -54,27 +58,33 @@ public class MyArrayList<T> implements List<Object> {
 
     @Override
     public boolean remove(Object o) {
-        int length = myList.length;
-        var newArr = new Object[length - 1];
-        arraycopy(myList, 0, newArr, 0, length);
-        for (Object o1 : newArr) {
-            return o == o1;
-        }
+//        var newArr = new Object[ myList.length - 1];
+//        for (int i = 0; i < newArr.length; i++) {
+//            if (contains(o)) {
+//                arraycopy(myList, 0, newArr, 0, myList.length-1);
+//                out.println(newArr);
+//            }
+//        }
+        var newArr= ArrayUtils.removeElement(myList, o);
+        out.println(Arrays.toString(newArr));
         return true;
     }
 
 
     @Override
     public boolean add(Object o) {
-        int length = myList.length;
-        var newArr = new Object[length + 1];
-        arraycopy(myList, 0, newArr, 0, length);
-        for (Object o1 : newArr) {
-            return o == o1;
-        }
+//        int length = myList.length;
+//        var newArr = new Object[length + 1];
+//       arraycopy(myList, 0, newArr, 0, length);
+//        for (int i = 0; i < myList.length+1; i++) {
+//
+//            newArr=ArrayUtils.add(myList, o);
+//            out.println(Arrays.toString(newArr));
+//        }
+        var newArr= ArrayUtils.add(myList, o);
+        out.println(Arrays.toString(newArr));
         return true;
-    }
-
+        }
 
     @Override
     public boolean addAll(Collection<?> collection) {
@@ -90,6 +100,7 @@ public class MyArrayList<T> implements List<Object> {
             if (i < myList.length) {
                 add(o);
             }
+            return true;
         }
 
         return false;
@@ -112,6 +123,7 @@ public class MyArrayList<T> implements List<Object> {
         for (Object o : myList) {
             if (contains(o)) {
                 remove(o);
+                out.println(Arrays.toString(myList));
             }
         }
     }
