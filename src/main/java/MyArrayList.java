@@ -1,4 +1,4 @@
-import static java.lang.System.*;
+import org.apache.commons.lang3.ArrayUtils;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -7,14 +7,19 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
-import org.apache.commons.lang3.ArrayUtils;
+
+import static java.lang.System.arraycopy;
+import static java.lang.System.out;
 
 public class MyArrayList<T> implements List<Object> {
 
-    public Object[] myList = new Object[5];
+    public Object[] myList;
+
+    public MyArrayList(int initialCapacity) {
+        this.myList = new Object[initialCapacity];
+    }
 
     @Override
     public int size() {
@@ -58,33 +63,17 @@ public class MyArrayList<T> implements List<Object> {
 
     @Override
     public boolean remove(Object o) {
-//        var newArr = new Object[ myList.length - 1];
-//        for (int i = 0; i < newArr.length; i++) {
-//            if (contains(o)) {
-//                arraycopy(myList, 0, newArr, 0, myList.length-1);
-//                out.println(newArr);
-//            }
-//        }
-        var newArr= ArrayUtils.removeElement(myList, o);
-        out.println(Arrays.toString(newArr));
+        myList = ArrayUtils.removeElement(myList, o);
         return true;
     }
 
 
     @Override
     public boolean add(Object o) {
-//        int length = myList.length;
-//        var newArr = new Object[length + 1];
-//       arraycopy(myList, 0, newArr, 0, length);
-//        for (int i = 0; i < myList.length+1; i++) {
-//
-//            newArr=ArrayUtils.add(myList, o);
-//            out.println(Arrays.toString(newArr));
-//        }
-        var newArr= ArrayUtils.add(myList, o);
-        out.println(Arrays.toString(newArr));
+        myList = ArrayUtils.add(myList, o);
+        out.println(Arrays.toString(myList));
         return true;
-        }
+    }
 
     @Override
     public boolean addAll(Collection<?> collection) {
@@ -95,15 +84,18 @@ public class MyArrayList<T> implements List<Object> {
     }
 
     @Override
-    public boolean addAll(int i, Collection<?> collection) {
-        for (Object o : collection) {
-            if (i < myList.length) {
-                add(o);
-            }
-            return true;
+    public boolean addAll(int startIndex, Collection<?> collection) {
+        if (startIndex < 0 || startIndex > myList.length) {
+            throw new IndexOutOfBoundsException();
         }
 
-        return false;
+        int counter = 0;
+        for (Object o : collection) {
+            add(startIndex + counter, o);
+            counter++;
+        }
+
+        return true;
     }
 
     //Don't do
@@ -156,11 +148,7 @@ public class MyArrayList<T> implements List<Object> {
 
     @Override
     public void add(int i, Object o) {
-        for (Object o1 : myList) {
-            if (indexOf(o1) != i) {
-                add(o);
-            }
-        }
+        myList = ArrayUtils.insert(i, myList, o);
     }
 
     @Override
@@ -211,6 +199,13 @@ public class MyArrayList<T> implements List<Object> {
     @Override
     public Object[] toArray(Object[] objects) {
         return new Object[0];
+    }
+
+    @Override
+    public String toString() {
+        return "MyArrayList{" +
+                "myList=" + Arrays.toString(myList) +
+                '}';
     }
 }
 
