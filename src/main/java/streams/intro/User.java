@@ -16,6 +16,7 @@ public class User {
         this.favoriteColor = favoriteColor;
     }
 
+
     public int getId() {
         return id;
     }
@@ -34,5 +35,14 @@ public class User {
 
     public String getFavoriteColor() {
         return favoriteColor;
+    }
+
+    @Override
+    public String toString() {
+        return "name='" + name + '\'' +
+            ", surname='" + surname + '\'' +
+            ", age=" + age +
+            ", favoriteColor='" + favoriteColor + '\'' +
+            '}';
     }
 }

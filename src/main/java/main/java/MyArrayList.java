@@ -1,6 +1,8 @@
-import org.apache.commons.lang3.ArrayUtils;
+package main.java;
 
-import java.lang.reflect.Array;
+import static java.lang.System.arraycopy;
+import static java.lang.System.out;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
@@ -9,9 +11,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
-
-import static java.lang.System.arraycopy;
-import static java.lang.System.out;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class MyArrayList<T> implements List<Object> {
 
