@@ -12,10 +12,10 @@ public class Main {
         List<User> users = Arrays.asList(
             new User(1, "Toni", "Stark", 35, "red"),
             new User(2, "Bruce", "Wayne", 25, "black"),
-            new User(3, "Gal", "Gadot", 23, "blue")
+            new User(3, "Gal", "Gadot", 23, "red")
         );
 
-        String color = "blue";
+        String color = "red";
         List<User> favoriteColor = task.findByFavoriteColor(color, users);
         System.out.println("Found user by favorite color " + color + ": " + favoriteColor);
 
@@ -41,6 +41,11 @@ public class Main {
         List<User> sortByName = task.sortUsersBy(userNameComparator, users);
 
         System.out.println("Users are sorted by name: " + sortByName);
+
+        Comparator<User> userId = Comparator.comparingInt(User::getId).reversed();
+        List<User>sortById = task.sortUsersBy(userId, users);
+        System.out.println("Users are sorted reverse by id: " +sortById);
+
 
     }
 
